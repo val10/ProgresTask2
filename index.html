@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="https://demos.telerik.com/kendo-ui/dropdownlist/basic-usage" />
+    <style>
+      html {
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://kendo.cdn.telerik.com/2022.1.301/styles/kendo.default-main.min.css"
+    />
+
+    <script src="https://kendo.cdn.telerik.com/2022.1.301/js/jquery.min.js"></script>
+
+    <script src="https://kendo.cdn.telerik.com/2022.1.301/js/kendo.all.min.js"></script>
+  </head>
+  <body>
+    <div id="example">
+      <div id="cap-view" class="demo-section k-header">
+        <h2>Customize your Kendo Cap</h2>
+        <div id="cap" class="black-cap"></div>
+        <div id="options">
+          <input id="color" />
+
+          <button
+            class="k-button k-button-solid-base k-button-solid k-button-rectangle k-button-md k-rounded-md"
+            onclick="deleteFunction()"
+            id="remove"
+          >
+            Remove items
+          </button>
+        </div>
+      </div>
+
+      <script>
+        $(document).ready(function () {
+          var data = [
+            { text: "Black", value: "1" },
+            { text: "Orange", value: "2" },
+            { text: "Grey", value: "3" },
+          ];
+
+          // create DropDownList from input HTML element
+          $("#color").kendoDropDownList({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: data,
+          });
+          document.getElementById("remove").onclick = deleteFunction;
+          function deleteFunction() {
+            let newArr = data.pop();
+            console.log(data);
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>
