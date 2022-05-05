@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <base href="https://demos.telerik.com/kendo-ui/dropdownlist/basic-usage" />
     <style>
-      html {
-        font-size: 14px;
-        font-family: Arial, Helvetica, sans-serif;
-      }
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
     </style>
     <title></title>
-    <link
-      rel="stylesheet"
-      href="https://kendo.cdn.telerik.com/2022.1.301/styles/kendo.default-main.min.css"
-    />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.1.301/styles/kendo.default-main.min.css" />
+
+</head>
+
+<body>
+    <div id="example">
+        <div id="cap-view" class="demo-section k-header">
+            <h2>Customize your Kendo Cap</h2>
+            <div id="cap" class="black-cap"></div>
+            <div id="options">
+                <input id="color" />
+
+                <button class="k-button k-button-solid-base k-button-solid k-button-rectangle k-button-md k-rounded-md" id="remove">
+                Remove last item
+            </button>
+            </div>
+        </div>
+
+
+    </div>
 
     <script src="https://kendo.cdn.telerik.com/2022.1.301/js/jquery.min.js"></script>
-
     <script src="https://kendo.cdn.telerik.com/2022.1.301/js/kendo.all.min.js"></script>
-  </head>
-  <body>
-    <div id="example">
-      <div id="cap-view" class="demo-section k-header">
-        <h2>Customize your Kendo Cap</h2>
-        <div id="cap" class="black-cap"></div>
-        <div id="options">
-          <input id="color" />
+    <script>
+        // Whole data that we want to load to the dropdown.
+        const data = [{
+            text: "Black",
+            value: "1"
+        }, {
+            text: "Orange",
+            value: "2"
+        }, {
+            text: "Grey",
+            value: "3"
+        }, ];
 
-          <button
-            class="k-button k-button-solid-base k-button-solid k-button-rectangle k-button-md k-rounded-md"
-            onclick="deleteFunction()"
-            id="remove"
-          >
-            Remove items
-          </button>
-        </div>
-      </div>
+        // Create or replace an instance of the dropdown that we have already instanced
+        const replaceDropdown = (DomElement) => {
+            return DomElement.kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: data,
+            });
+        };
 
-      <script>
-        $(document).ready(function () {
-          var data = [
-            { text: "Black", value: "1" },
-            { text: "Orange", value: "2" },
-            { text: "Grey", value: "3" },
-          ];
 
-          // create DropDownList from input HTML element
-          $("#color").kendoDropDownList({
-            dataTextField: "text",
-            dataValueField: "value",
-            dataSource: data,
-          });
-          document.getElementById("remove").onclick = deleteFunction;
-          function deleteFunction() {
-            let newArr = data.pop();
-            console.log(data);
-          }
+        $(document).ready(function() {
+            //after removing last element from DB of the dropdown, we update the input value
+            const patchFunc = replaceDropdown($('#color'));
+
+
+            //Get the instance of the dropdown and remove from the imported data the latest one
+            $('#remove').click(function(event) {
+                //taking parameter values from the dropdown
+                let instance = patchFunc.getKendoDropDownList();
+                let dataSource = instance.dataSource;
+                dataSource.data().pop();
+            });
         });
-      </script>
-    </div>
-  </body>
+    </script>
+</body>
+
 </html>
